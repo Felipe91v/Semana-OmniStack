@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 const app = express();
 
@@ -10,10 +11,7 @@ mongoose.connect('mongodb+srv://felipebd:Seep1914@cluster0-lhblu.mongodb.net/fel
 });
 
 app.use(express.json());
+app.use(routes);
 
-app.post('/users', (request, response ) => {
-    console.log(request.body);
-    return response.json({ message: 'Hello palmeiras'});
-});
 
 app.listen(3333);
