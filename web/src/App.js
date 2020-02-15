@@ -38,9 +38,10 @@ function App() {
        latitude,
        longitude,
      })
-
-     console.log(response.data);
-   }
+     
+     setGithubUsername('');
+     setTechs('');
+    }
 
   return (
     <div id="app">
