@@ -7,6 +7,7 @@ import './Sidebar.css';
 import './Main.css';
 
 function App() {
+  const [devs, setDevs] = useState([]); 
   const [github_username, setGithubUsername] = useState('');
   const [techs, setTechs] = useState('');
   const [latitude, setLatitude] = useState('');
@@ -29,6 +30,15 @@ function App() {
      )
    }, []);
  
+   useEffect(() => {
+     async function loadDevs(){
+        const response = await api.get('/devs');
+   
+        setDevs(response.data);
+     }
+     loadDevs();
+   }, []); 
+
    async function handleAddDev(e) {
      e.preventDefault();
 
@@ -101,50 +111,19 @@ function App() {
       
       <main>
         <ul>
-          <li className="dev-item">
+          {devs.map(dev => (
+          <li key={dev._id} className="dev-item">
             <header>
-                <img src="https://avatars0.githubusercontent.com/u/2254731?s=460&v=4" alt="Diego Fernandes"/>
-                <div className="user-info">
-                  <strong>Diego Fernandes</strong>
-                  <span>REactJs, React Native, Node.JS</span>
+                <img src={dev.avatar_url} alt={dev.name}/>
+                 <div className="user-info">
+                   <strong>{dev.name}</strong>
+                     <span>{dev.techs.join(', ')}</span>
                 </div>
             </header>   
-            <p>CTO na @Rocketseat. Apaixonado pelas melhores tecnologias de desenvolvimento web e mobile. </p>
-            <a href="https://github.com/diego3g">Acessar Perfil no Github</a>
+            <p>{dev.bio}</p>
+            <a href={`https://github.com/${dev.github_username}`}>Acessar Perfil no Github</a>
           </li>
-          <li className="dev-item">
-            <header>
-                <img src="https://avatars0.githubusercontent.com/u/2254731?s=460&v=4" alt="Diego Fernandes"/>
-                <div className="user-info">
-                  <strong>Diego Fernandes</strong>
-                  <span>REactJs, React Native, Node.JS</span>
-                </div>
-            </header>   
-            <p>CTO na @Rocketseat. Apaixonado pelas melhores tecnologias de desenvolvimento web e mobile. </p>
-            <a href="https://github.com/diego3g">Acessar Perfil no Github</a>
-          </li>
-          <li className="dev-item">
-            <header>
-                <img src="https://avatars0.githubusercontent.com/u/2254731?s=460&v=4" alt="Diego Fernandes"/>
-                <div className="user-info">
-                  <strong>Diego Fernandes</strong>
-                  <span>REactJs, React Native, Node.JS</span>
-                </div>
-            </header>   
-            <p>CTO na @Rocketseat. Apaixonado pelas melhores tecnologias de desenvolvimento web e mobile. </p>
-            <a href="https://github.com/diego3g">Acessar Perfil no Github</a>
-          </li>
-          <li className="dev-item">
-            <header>
-                <img src="https://avatars0.githubusercontent.com/u/2254731?s=460&v=4" alt="Diego Fernandes"/>
-                <div className="user-info">
-                  <strong>Diego Fernandes</strong>
-                  <span>REactJs, React Native, Node.JS</span>
-                </div>
-            </header>   
-            <p>CTO na @Rocketseat. Apaixonado pelas melhores tecnologias de desenvolvimento web e mobile. </p>
-            <a href="https://github.com/diego3g">Acessar Perfil no Github</a>
-          </li>
+          ))}
         </ul>
       </main>
     </div>
