@@ -12,7 +12,7 @@ const server = http.Server(app);
 setupWebsocket(server);
 
 //string de conexão mongoDB
-mongoose.connect('mongodb+srv://felipebd:Seep1914@cluster0-lhblu.mongodb.net/felipebd?retryWrites=true&w=majority', {
+mongoose.connect(//string de conexão do banco de dados, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
